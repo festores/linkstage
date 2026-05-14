@@ -4,7 +4,7 @@ import { createServiceClient } from '@/lib/supabase';
 import type Stripe from 'stripe';
 
 export const runtime = 'nodejs';
-
+export const dynamic = 'force-dynamic';
 const PLAN_MAP: Record<string, string> = {
   [process.env.STRIPE_PRO_PRICE_ID ?? '']: 'pro',
   [process.env.STRIPE_CREATOR_PRICE_ID ?? '']: 'creator',
