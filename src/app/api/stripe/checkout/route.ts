@@ -1,11 +1,13 @@
+import { NextRequest, NextResponse } from 'next/server';
+
 export const dynamic = 'force-dynamic';
 
-import { NextRequest, NextResponse } from 'next/server';
-import { stripe, PLANS } from '@/lib/stripe';
-import { createServiceClient } from '@/lib/supabase';
-import { createClient } from '@supabase/supabase-js';
 export async function POST(req: NextRequest) {
   try {
+    const { stripe, PLANS } = await import('@/lib/stripe');
+    const { createServiceClient } = await import('@/lib/supabase');
+    const { createClient } = await import('@supabase/supabase-js');
+
     const authHeader = req.headers.get('authorization');
     const token = authHeader?.replace('Bearer ', '');
     if (!token) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -36,7 +38,7 @@ export async function POST(req: NextRequest) {
       await db.from('profiles').update({ stripe_customer_id: customerId }).eq('id', user.id);
     }
 
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3001';
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
       mode: 'subscription',
