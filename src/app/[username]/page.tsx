@@ -1,9 +1,10 @@
+export const dynamic = 'force-dynamic';
+
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { createServiceClient } from '@/lib/supabase';
 import type { Profile, Link as LinkType } from '@/types';
 import PublicPageClient from './PublicPageClient';
-export const dynamic = 'force-dynamic';
 interface Props { params: { username: string } }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

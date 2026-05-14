@@ -1,8 +1,9 @@
+export const dynamic = 'force-dynamic';
+
 import { NextRequest, NextResponse } from 'next/server';
 import { stripe, PLANS } from '@/lib/stripe';
 import { createServiceClient } from '@/lib/supabase';
 import { createClient } from '@supabase/supabase-js';
-export const dynamic = 'force-dynamic';
 export async function POST(req: NextRequest) {
   try {
     const authHeader = req.headers.get('authorization');
